@@ -1,0 +1,11 @@
+1.日志系统antlinker.com/antlog
+antlog.go文件
+日志配置文件位于 config/autlog.conf
+实现了四个可配置选项，其中日志文件数量参数未实现，这个部分考虑用最后更新时间删除超过指定数量的日志
+
+const checkInterval float64 = 3  // 日志文件大小检查时间间隔（分钟）
+const signalLogSize int64 = 1024 /** 1024 * 1024*/ // 单个日志文件大小
+const level logLevel = debugLog  // 日志级别
+const toConsole bool = false     // 是否输出到控制台
+const logFileCount int = 3       // 日志文件数量--该设置未实现
+
