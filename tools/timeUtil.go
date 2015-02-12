@@ -28,10 +28,26 @@ func GetTimeStamp() int64 {
 // 获取当前时间戳（带纳秒）
 func GetTimeStampNamo() int64 {
 	return time.Now().UnixNano()
+
+}
+
+// 获取当前时间基础上 增加或减少一定时间后的时间
+func CalcTimeByHours(format string, h int64) (string, error) {
+	datevalue := time.Now()
+	multiple := time.Duration(h)
+	datevalue = datevalue.Add(multiple * time.Hour)
+	datestring, err := GetDateStringWithFormat(datevalue, format)
+	return datestring, err
+}
+
+func GetDateWithFormat(format string) (string, error) {
+	datevalue := time.Now()
+	datestring, err := GetDateStringWithFormat(datevalue, format)
+	return datestring, err
 }
 
 // 按照格式获取当前日期，例如：yyyy-MM-dd HH:mm:ss
-func GetDateWithFormat(format string) (string, error) {
+func GetDateStringWithFormat(datevalue time.Time, format string) (string, error) {
 	f := ""
 	if strings.Contains(format, "y") {
 		if strings.Count(format, "yyyy") == 1 && strings.Count(format, "y") == 4 {
@@ -80,8 +96,7 @@ func GetDateWithFormat(format string) (string, error) {
 			return "", errors.New("日期格式错误")
 		}
 	}
-
-	return time.Now().Format(f), nil
+	return datevalue.Format(f), nil
 }
 
 // 返回给出日期是周几，英文
