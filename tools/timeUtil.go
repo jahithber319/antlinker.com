@@ -31,7 +31,7 @@ func GetTimeStampNamo() int64 {
 
 }
 
-// 获取当前时间基础上 增加或减少一定时间后的时间
+// 获取当前时间基础上 增加或减少一些hour后的时间
 func CalcTimeByHours(format string, h int64) (string, error) {
 	datevalue := time.Now()
 	multiple := time.Duration(h)
@@ -40,6 +40,14 @@ func CalcTimeByHours(format string, h int64) (string, error) {
 	return datestring, err
 }
 
+// 获取当前时间基础上 增加或减少一些second后的时间
+func CalcTimeBySeconds(format string, s int64) (string, error) {
+	datevalue := time.Now()
+	multiple := time.Duration(s)
+	datevalue = datevalue.Add(multiple * time.Second)
+	datestring, err := GetDateStringWithFormat(datevalue, format)
+	return datestring, err
+}
 func GetDateWithFormat(format string) (string, error) {
 	datevalue := time.Now()
 	datestring, err := GetDateStringWithFormat(datevalue, format)
